@@ -19,9 +19,7 @@ export class LoginComponent {
     document.getElementById('loginForm')?.click();
     this.authService.login(loginForm.value).subscribe(
       (response: User) => {
-        console.log(response);
         localStorage.setItem('user', JSON.stringify(response));
-        console.log(response.balance);
         this.router.navigate(['dashboard']);
         loginForm.reset();
       },

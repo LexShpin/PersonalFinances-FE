@@ -8,6 +8,10 @@
 </head>
 <body>
     <p>Welcome, {{user.username}}!</p>
-    <p>You current balance is {{user.balance}}</p> 
+    <p>You current balance is {{user.balance}}</p>
+    <button>Update balance</button>
+    <table *ngFor="let transaction of transactions">
+        <p>{{transaction}}</p>
+    </table>
 </body>
 </html>

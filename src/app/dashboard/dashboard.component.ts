@@ -4,6 +4,7 @@ import { DashboardService } from './dashboard.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Transaction } from '../transactions/transaction';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +22,13 @@ export class DashboardComponent implements OnInit {
   public user: User;
   public balance: number;
   public someVar = 'variable';
+  public transactions: Transaction[];
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user')!);
-    console.log(this.user);
-    console.log(this.user.username);
     this.dashboardService.getDashboard(this.user.username).subscribe(
       (response) => {
+        this.user = response;
         console.log(response);
         this.balance = response.balance;
       },
