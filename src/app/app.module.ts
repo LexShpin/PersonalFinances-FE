@@ -10,13 +10,15 @@ import { RegistrationComponent } from './auth/registration/registration.componen
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    TransactionsComponent
   ],
   imports: [
     BrowserModule,

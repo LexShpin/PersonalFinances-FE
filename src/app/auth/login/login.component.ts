@@ -21,7 +21,6 @@ export class LoginComponent {
         loginForm.reset();
       },
       (error) => {
-        alert(error.message);
         loginForm.reset();
       }
     )
