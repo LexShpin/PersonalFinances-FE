@@ -1,7 +1,10 @@
+import { DashboardComponent } from './../dashboard/dashboard.component';
+import { User } from './../user';
 import { Registration } from './registration/registration';
 import { Login } from './login/login';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -11,13 +14,13 @@ import { Injectable } from "@angular/core";
 export class AuthService {
     private apiServiceUrl = 'http://localhost:8084/auth';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private dashboardComponent: DashboardComponent) {}
 
-    public login(login: Login) {
-        return this.http.post(`${this.apiServiceUrl}/login`, login);
+    public login(login: Login): Observable<User> {
+        return this.http.post<User>(`${this.apiServiceUrl}/login`, login);
     }
 
-    public register(registration: Registration) {
-        return this.http.post(`${this.apiServiceUrl}/register`, registration);
+    public register(registration: Registration): Observable<User> {
+        return this.http.post<User>(`${this.apiServiceUrl}/register`, registration);
     }
 }

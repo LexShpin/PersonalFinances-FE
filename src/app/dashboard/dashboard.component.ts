@@ -1,6 +1,8 @@
+import { Observable } from 'rxjs';
+import { User } from './../user';
 import { DashboardService } from './dashboard.service';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,13 +11,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 
-export class DashboardComponent {
+@Injectable({
+  providedIn: 'root'
+})
+
+export class DashboardComponent implements OnInit {
   private dashboardUrl = 'http://localhost:8084/dashboard';
   
-  public username = {};
+  public user: User;
+  public balance: number;
+  public someVar = 'variable';
 
-  constructor(private http: HttpClient) {
-    this.http.get(this.dashboardUrl).subscribe(data => this.username = data);
-    console.log(this.username);
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user')!);
+    console.log(this.user);
+    console.log(this.user.username);
+    this.dashboardService.getDashboard(this.user.username).subscribe(
+      (response) => {
+        console.log(response);
+        this.balance = response.balance;
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+    console.log(this.user.balance);
+    console.log('loaded');
   }
+
+  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService) {}
 }
