@@ -8,11 +8,15 @@ import { User } from '../user';
 })
 
 export class DashboardService {
-    private dashoardUrl = 'http://localhost:8084/dashboard';
+    private dashboardUrl = 'http://localhost:8084/dashboard';
 
     constructor(private http: HttpClient) {}
 
     public getDashboard(username: string): Observable<User> {
-        return this.http.get<User>(`${this.dashoardUrl}/${username}`);
+        return this.http.get<User>(`${this.dashboardUrl}/${username}`);
+    }
+
+    public updateBalance(user: User): Observable<User> {
+        return this.http.post<User>(`${this.dashboardUrl}/${user.username}/updateBalance`, user);
     }
 }

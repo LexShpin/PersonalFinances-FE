@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Transaction } from '../transactions/transaction';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,12 +18,13 @@ import { Transaction } from '../transactions/transaction';
 })
 
 export class DashboardComponent implements OnInit {
-  private dashboardUrl = 'http://localhost:8084/dashboard';
-  
+
   public user: User;
   public balance: number;
   public someVar = 'variable';
   public transactions: Transaction[];
+
+  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user')!);
@@ -40,5 +42,19 @@ export class DashboardComponent implements OnInit {
     console.log('loaded');
   }
 
-  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService) {}
+  public onUpdateBalance(updateBalanceForm: NgForm): void {
+    this.user.balance = updateBalanceForm.value['number'];
+    console.log(this.user);
+    this.dashboardService.updateBalance(this.user).subscribe(
+      (response) => {
+        console.log(response);
+        console.log(updateBalanceForm.value['number']);
+        console.log(typeof updateBalanceForm.value['number']);
+      },
+      (error) => {
+        console.log(error.message);
+        console.log(updateBalanceForm.value['number']);
+      }
+    )
+  }
 }
