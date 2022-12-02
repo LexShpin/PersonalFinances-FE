@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { User } from '../user';
 import { Transaction } from './transaction';
 import { TransactionsService } from './transactions.service';
@@ -12,19 +14,22 @@ import { TransactionsService } from './transactions.service';
 export class TransactionsComponent {
   public user: User;
   public transactions: Transaction[];
+  public date: Date;
+  public selectedCategory: string;
+  public currentTransaction: Transaction;
 
   constructor(private router: Router, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
+    this.date = new Date();
     this.user = JSON.parse(localStorage.getItem('user')!);
     this.onLoadTransactions();
   }
 
-  public onLoadTransactions() {
+  public onLoadTransactions(): void {
     this.transactionsService.getAllUserTransactions(this.user.username).subscribe(
       (response) => {
         this.transactions = response;
-        console.log(response);
       },
       (error) => {
         console.log(error.message);
@@ -32,7 +37,37 @@ export class TransactionsComponent {
     )
   }
 
-  public addTransaction() {
-    // TODO
+  public onAddTransaction(addTransactionForm: NgForm): void {
+    console.log(addTransactionForm.value);
+    this.transactionsService.addTransaction(addTransactionForm.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
+
+  public onEditTransaction(editTransactionForm: NgForm): void {
+    console.log(editTransactionForm.value);
+    // TODO - find the current transaction before passing in its id
+    this.transactionsService.editTransaction(editTransactionForm.value, this.currentTransaction.id).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+  public onDeleteTransaction(id: number): void {
+
+  }
+
+  public onSelectCategory(value: string): void {
+    this.selectedCategory = value;
+  }
+
 }

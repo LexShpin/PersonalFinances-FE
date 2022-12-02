@@ -9,11 +9,37 @@
 <body>
     <h1>Transactions</h1>
     <table *ngFor="let transaction of transactions">
-        <p>{{transaction.amount}}</p>
-        <p>{{transaction.category}}</p>
+        <tr>
+            <td>{{transaction.amount}}</td>
+            <td>{{transaction.category}}</td>
+            <td>
+                <form #editTransactionForm="ngForm" (ngSubmit)="onEditTransaction(editTransactionForm)">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td>
+                <button type="submit" (click)="onDeleteTransaction(currentTransaction.id)">Delete</button>
+            </td>
+        </tr>
+        
     </table>
-    <form #addTransactionForm="ngForm" (ngSubmit)="addTransaction">
-
+    <form #addTransactionForm="ngForm" (ngSubmit)="onAddTransaction(addTransactionForm)">
+        <label for="date">Date: </label>
+        <input type="date" id="date" ngModel="{{date}}" value="{{date}}" name="date">
+        <br>
+        <label for="category">Category: </label>
+        <select ngModel="{{selectedCategory}}" #categories (change)="onSelectCategory(categories.value)" name="category" id="category">
+            <option value="groceries">Groceries</option>
+            <option value="medicine">Medicine</option>
+        </select>
+        <br>
+        <label for="amount">Amount: </label>
+        <input type="number" id="amount" ngModel name="amount">
+        <br>
+        <label for="notes">Notes: </label>
+        <input type="notes" id="notes" ngModel name="notes">
+        <br>
+        <input type="hidden" id="username" ngModel="{{user.username}}" name="username">
         <button type="submit">Add transaction</button>
     </form>
 </body>
