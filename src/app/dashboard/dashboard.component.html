@@ -10,6 +10,11 @@
     <p>Welcome, {{user.username}}!</p>
     <p>You current balance is {{user.balance}}</p>
     <button>Update balance</button>
+    <form>
+        <label for="balance-field">New balance: </label>
+        <input type="number" id="balance-field">
+        <button type="submit">Update</button>
+    </form>
     <table *ngFor="let transaction of transactions">
         <p>{{transaction}}</p>
     </table>
