@@ -1,3 +1,6 @@
-* {
-    margin: 10px;
+.balance-info-card {
+    width: 20rem;
+    height: 10rem;
+    border-radius: 3%;
+    background: url('https://thumbor.forbes.com/thumbor/fit-in/600x300/https://www.forbes.com/advisor/wp-content/uploads/2021/08/vertical_black_card.c85039a0.png') center center no-repeat;
 }

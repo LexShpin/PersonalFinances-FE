@@ -63,7 +63,14 @@ export class TransactionsComponent {
   }
 
   public onDeleteTransaction(id: number): void {
-
+    this.transactionsService.deleteTransaction(id).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    )
   }
 
   public onSelectCategory(value: string): void {
@@ -84,6 +91,10 @@ export class TransactionsComponent {
     }
     if (mode === 'add') {
       button.setAttribute('data-bs-target', '#addTransactionModal');
+    }
+    if (mode === 'delete') {
+      this.currentTransaction = transaction;
+      button.setAttribute('data-bs-target', '#deleteTransactionModal')
     }
 
     container?.appendChild(button);

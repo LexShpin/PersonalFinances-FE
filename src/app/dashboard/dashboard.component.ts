@@ -1,3 +1,4 @@
+import { TransactionsService } from './../transactions/transactions.service';
 import { Observable } from 'rxjs';
 import { User } from './../user';
 import { DashboardService } from './dashboard.service';
@@ -24,10 +25,11 @@ export class DashboardComponent implements OnInit {
   public someVar = 'variable';
   public transactions: Transaction[];
 
-  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService) {}
+  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user')!);
+    this.displayRecentUserTransactions();
     this.dashboardService.getDashboard(this.user.username).subscribe(
       (response) => {
         this.user = response;
@@ -56,6 +58,30 @@ export class DashboardComponent implements OnInit {
         updateBalanceForm.reset();
         console.log(error.message);
         console.log(updateBalanceForm.value['number']);
+      }
+    )
+  }
+
+  public onOpenModal(): void {
+    const container = document.getElementById('main-container');
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-bs-toggle', 'modal');
+    button.setAttribute('data-bs-target', '#updateBalanceModal');
+
+    container?.appendChild(button);
+    button.click();
+  }
+
+  public displayRecentUserTransactions(): void {
+    this.transactionsService.getAllUserTransactions(this.user.username).subscribe(
+      (response) => {
+        this.transactions = response;
+      },
+      (error) => {
+        console.log(error.message);
       }
     )
   }

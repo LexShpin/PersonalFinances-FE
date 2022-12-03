@@ -7,17 +7,61 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <p>Welcome, {{user.username}}!</p>
-    <p>You current balance is: {{user.balance}}</p>
-    <button>Update balance</button>
-    <form #updateBalanceForm="ngForm" (ngSubmit)="onUpdateBalance(updateBalanceForm)">
-        <label for="balance-field">New balance: </label>
-        <input type="number" ngModel name="number" id="balance-field">
-        <button type="submit">Update</button>
-    </form>
-    <p>Your transactions:</p> 
-    <table *ngFor="let transaction of transactions">
-        <p>{{transaction}}</p>
-    </table>
+    <div id="main-container" class="container">
+        <h1>Dashboard</h1>
+        <h3>Welcome, {{user.username}}!</h3>
+        <div class="balance-info-card">
+            <p>You current balance is: {{user.balance}}</p>
+            <button type="button" class="btn btn-primary" (click)="onOpenModal()">
+                Update balance
+            </button>
+        </div>
+        <h2>Your recent transactions: </h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let transaction of transactions">
+              <tr>
+                <th scope="row">{{transaction.id}}</th>
+                <td>{{transaction.date}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.category}}</td>
+                <td>{{transaction.notes}}</td>
+              </tr>
+            </tbody>
+        </table>
+        <a href="/transactions">All transactions</a>
+
+          <!-- Update Balance Modal -->
+        <div class="modal fade" id="updateBalanceModal" tabindex="-1" aria-labelledby="updateBalanceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="updateBalanceModalLabel">Update Balance</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div>
+                    <form #updateBalanceForm="ngForm" (ngSubmit)="onUpdateBalance(updateBalanceForm)">
+                        <div class="form-group">
+                            <label for="balance-field">New balance: </label>
+                            <input type="number" class="form-control" id="balance-field" ngModel name="number">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
 </body>
 </html>
