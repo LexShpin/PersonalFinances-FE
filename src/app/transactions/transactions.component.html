@@ -7,40 +7,122 @@
     <title>Transactions</title>
 </head>
 <body>
-    <h1>Transactions</h1>
-    <table *ngFor="let transaction of transactions">
-        <tr>
-            <td>{{transaction.amount}}</td>
-            <td>{{transaction.category}}</td>
-            <td>
+    <div class="container" id="main-container">
+        <h1>Transactions</h1>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Category</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let transaction of transactions">
+              <tr>
+                <th scope="row">{{transaction.id}}</th>
+                <td>{{transaction.date}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.category}}</td>
+                <td>{{transaction.notes}}</td>
+                <td>
+                    <button type="button" (click)="onOpenModal(transaction, 'edit')" class="btn btn-primary">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary" (click)="onDeleteTransaction(currentTransaction.id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-primary" (click)="onOpenModal(transactions[0], 'add')">
+            Add transaction
+          </button>
+    </div>
+
+    <!-- Add Transaction Modal -->
+    <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="addTransactionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addTransactionModalLabel">Add new transaction</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #addTransactionForm="ngForm" (ngSubmit)="onAddTransaction(addTransactionForm)">
+                    <div class="form-group">
+                      <label for="date">Date: </label>
+                      <input type="date" class="form-control" id="date" value="{{date}}" ngModel name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category: </label>
+                        <select type="date" class="form-select" id="category" ngModel="{{selectedCategory}}" #categories (change)="onSelectCategory(categories.value)" name="category">
+                            <option value="groceries">Groceries</option>
+                            <option value="medicine">Medicine</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount: </label>
+                        <input type="number" class="form-control" id="amount" ngModel name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes: </label>
+                        <input type="text" class="form-control" id="notes" ngModel name="notes">
+                    </div>
+                    <input type="hidden" id="username" ngModel="{{user.username}}" name="username">
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Edit transaction modal -->
+    <div class="modal fade" id="editTransactionModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">Edit</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                 <form #editTransactionForm="ngForm" (ngSubmit)="onEditTransaction(editTransactionForm)">
-                    <button type="submit">Edit</button>
-                </form>
-            </td>
-            <td>
-                <button type="submit" (click)="onDeleteTransaction(currentTransaction.id)">Delete</button>
-            </td>
-        </tr>
-        
-    </table>
-    <form #addTransactionForm="ngForm" (ngSubmit)="onAddTransaction(addTransactionForm)">
-        <label for="date">Date: </label>
-        <input type="date" id="date" ngModel="{{date}}" value="{{date}}" name="date">
-        <br>
-        <label for="category">Category: </label>
-        <select ngModel="{{selectedCategory}}" #categories (change)="onSelectCategory(categories.value)" name="category" id="category">
-            <option value="groceries">Groceries</option>
-            <option value="medicine">Medicine</option>
-        </select>
-        <br>
-        <label for="amount">Amount: </label>
-        <input type="number" id="amount" ngModel name="amount">
-        <br>
-        <label for="notes">Notes: </label>
-        <input type="notes" id="notes" ngModel name="notes">
-        <br>
-        <input type="hidden" id="username" ngModel="{{user.username}}" name="username">
-        <button type="submit">Add transaction</button>
-    </form>
+                    <div class="form-group">
+                      <label for="date">Date: </label>
+                      <input type="date" class="form-control" id="date" value="{{date}}" ngModel="{{currentTransaction?.date}}" name="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category: </label>
+                        <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" name="category">
+                            <option value="groceries">Groceries</option>
+                            <option value="medicine">Medicine</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount: </label>
+                        <input type="number" class="form-control" id="amount" ngModel="{{currentTransaction?.amount}}" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes: </label>
+                        <input type="text" class="form-control" id="notes" ngModel="{{currentTransaction?.notes}}" name="notes">
+                    </div>
+                    <input type="hidden" id="username" ngModel="{{user.username}}" name="username">
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                  </form>
+            </div>
+            
+        </div>
+        </div>
+    </div>
 </body>
 </html>

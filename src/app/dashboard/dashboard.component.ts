@@ -47,11 +47,13 @@ export class DashboardComponent implements OnInit {
     console.log(this.user);
     this.dashboardService.updateBalance(this.user).subscribe(
       (response) => {
+        updateBalanceForm.reset();
         console.log(response);
         console.log(updateBalanceForm.value['number']);
         console.log(typeof updateBalanceForm.value['number']);
       },
       (error) => {
+        updateBalanceForm.reset();
         console.log(error.message);
         console.log(updateBalanceForm.value['number']);
       }

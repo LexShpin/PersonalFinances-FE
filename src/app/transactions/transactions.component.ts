@@ -17,6 +17,7 @@ export class TransactionsComponent {
   public date: Date;
   public selectedCategory: string;
   public currentTransaction: Transaction;
+  public categories: [];
 
   constructor(private router: Router, private transactionsService: TransactionsService) {}
 
@@ -38,7 +39,6 @@ export class TransactionsComponent {
   }
 
   public onAddTransaction(addTransactionForm: NgForm): void {
-    console.log(addTransactionForm.value);
     this.transactionsService.addTransaction(addTransactionForm.value).subscribe(
       (response) => {
         console.log(response);
@@ -68,6 +68,26 @@ export class TransactionsComponent {
 
   public onSelectCategory(value: string): void {
     this.selectedCategory = value;
+  }
+
+  public onOpenModal(transaction: Transaction, mode: string): void {
+    const container = document.getElementById('main-container');
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-bs-toggle', 'modal');
+
+    if (mode === 'edit') {
+      this.currentTransaction = transaction;
+      button.setAttribute('data-bs-target', '#editTransactionModal');
+    }
+    if (mode === 'add') {
+      button.setAttribute('data-bs-target', '#addTransactionModal');
+    }
+
+    container?.appendChild(button);
+    button.click();
   }
 
 }
