@@ -19,6 +19,10 @@ export class TransactionsService {
         return this.http.get<Transaction[]>(`${this.transactionsUrl}/${username}`);
     }
 
+    public getTransactionCategories(): Observable<[]> {
+        return this.http.get<[]>(`${this.transactionsUrl}/categories`);
+    }
+
     public addTransaction(username: string, addTransactionForm: NgForm): Observable<Transaction> {
         return this.http.post<Transaction>(`${this.transactionsUrl}/${username}/create`, addTransactionForm);
     }

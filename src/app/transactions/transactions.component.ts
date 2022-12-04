@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../user';
+import { Category } from './category';
 import { Transaction } from './transaction';
 import { TransactionsService } from './transactions.service';
 
@@ -17,7 +18,7 @@ export class TransactionsComponent {
   public date: Date;
   public selectedCategory: string;
   public currentTransaction: Transaction;
-  public categories: [];
+  public transactionCategories: any[];
 
   constructor(private transactionsService: TransactionsService) {}
 
@@ -25,12 +26,25 @@ export class TransactionsComponent {
     this.date = new Date();
     this.user = JSON.parse(localStorage.getItem('user')!);
     this.onLoadTransactions();
+    this.onLoadCategories();
   }
 
   public onLoadTransactions(): void {
     this.transactionsService.getAllUserTransactions(this.user.username).subscribe(
       (response) => {
         this.transactions = response;
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    )
+  }
+
+  public onLoadCategories(): void {
+    this.transactionsService.getTransactionCategories().subscribe(
+      (response) => {
+        this.transactionCategories = response;
+        this.transactionCategories = this.transactionCategories[0];
       },
       (error) => {
         console.log(error.message);

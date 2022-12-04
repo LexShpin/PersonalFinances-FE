@@ -62,8 +62,7 @@
                     <div class="form-group">
                         <label for="category">Category: </label>
                         <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" ngModel name="category">
-                            <option value="groceries">Groceries</option>
-                            <option value="medicine">Medicine</option>
+                            <option value="{{category}}" *ngFor="let category of transactionCategories">{{category}}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -102,9 +101,8 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Category: </label>
-                        <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" ngModel name="category">
-                            <option value="groceries">Groceries</option>
-                            <option value="medicine">Medicine</option>
+                        <select type="date" class="form-select" id="category" ngModel name="category">
+                            <option selected="{{currentTransaction?.category}}" value="{{category}}" *ngFor="let category of transactionCategories">{{category}}</option>
                         </select>
                     </div>
                     <div class="form-group">
