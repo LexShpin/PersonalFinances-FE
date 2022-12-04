@@ -21,7 +21,7 @@ export class RegistrationComponent {
         console.log('Success!');
         localStorage.setItem('username', response.username);
         registrationForm.reset();
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['login']);
       },
       (error) => {
         console.log(error.message);

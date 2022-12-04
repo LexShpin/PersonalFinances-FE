@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
     DashboardComponent,
     LoginComponent,
     RegistrationComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
