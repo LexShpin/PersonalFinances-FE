@@ -19,15 +19,15 @@ export class TransactionsService {
         return this.http.get<Transaction[]>(`${this.transactionsUrl}/${username}`);
     }
 
-    public addTransaction(addTransactionForm: NgForm): Observable<Transaction> {
-        return this.http.post<Transaction>(`${this.transactionsUrl}/create`, addTransactionForm);
+    public addTransaction(username: string, addTransactionForm: NgForm): Observable<Transaction> {
+        return this.http.post<Transaction>(`${this.transactionsUrl}/${username}/create`, addTransactionForm);
     }
 
-    public editTransaction(editTransactionForm: NgForm, id: number): Observable<Transaction> {
-        return this.http.patch<Transaction>(`${this.transactionsUrl}/${id}/update`, editTransactionForm);
+    public editTransaction(username: string, editTransactionForm: NgForm, id: number): Observable<Transaction> {
+        return this.http.patch<Transaction>(`${this.transactionsUrl}/${username}/${id}/update`, editTransactionForm);
     }
 
-    public deleteTransaction(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.transactionsUrl}/${id}/delete`);
+    public deleteTransaction(username: string, id: number): Observable<void> {
+        return this.http.delete<void>(`${this.transactionsUrl}/${username}/${id}/delete`);
     }
 }

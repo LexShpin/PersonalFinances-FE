@@ -18,22 +18,23 @@
                 <th scope="col">Amount</th>
                 <th scope="col">Category</th>
                 <th scope="col">Notes</th>
+                <th scope="col" class="action-column__header">Action</th>
               </tr>
             </thead>
             <tbody *ngFor="let transaction of transactions">
               <tr>
                 <th scope="row">{{transaction.id}}</th>
                 <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
-                <td>{{transaction.amount}}</td>
+                <td>${{transaction.amount}}</td>
                 <td>{{transaction.category}}</td>
                 <td>{{transaction.notes}}</td>
-                <td>
+                <td class="action-column">
                     <button type="button" (click)="onOpenModal(transaction, 'edit')" class="btn btn-primary">
                         Edit
                     </button>
-                </td>
-                <td>
-                    <button type="submit" class="btn btn-danger" (click)="onOpenModal(transaction, 'delete')">Delete</button>
+                    <button type="submit" class="btn btn-danger" (click)="onOpenModal(transaction, 'delete')">
+                        Delete
+                    </button>
                 </td>
               </tr>
             </tbody>

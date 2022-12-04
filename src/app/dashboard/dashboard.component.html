@@ -11,9 +11,11 @@
     <div id="main-container" class="container">
         <h1>Dashboard</h1>
         <h3>Welcome, {{user.username}}!</h3>
-        <div class="balance-info-card">
-            <p>You current balance is: {{user.balance}}</p>
-            <button type="button" class="btn btn-primary" (click)="onOpenModal()">
+        <div class="balance">
+            <div class="balance-info-card">
+                <p class="balance-info-card__text">You current balance is: ${{user.balance}}</p>
+            </div>
+            <button type="button balance-btn" class="btn btn-primary" (click)="onOpenModal()">
                 Update balance
             </button>
         </div>
@@ -32,7 +34,7 @@
               <tr>
                 <th scope="row">{{transaction.id}}</th>
                 <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
-                <td>{{transaction.amount}}</td>
+                <td>${{transaction.amount}}</td>
                 <td>{{transaction.category}}</td>
                 <td>{{transaction.notes}}</td>
               </tr>
@@ -47,7 +49,7 @@
                 <h1 class="modal-title fs-5" id="updateBalanceModalLabel">Update Balance</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div>
+                <div class="modal-body">
                     <form #updateBalanceForm="ngForm" (ngSubmit)="onUpdateBalance(updateBalanceForm)">
                         <div class="form-group">
                             <label for="balance-field">New balance: </label>

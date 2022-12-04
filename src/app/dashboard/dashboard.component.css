@@ -2,5 +2,20 @@
     width: 20rem;
     height: 10rem;
     border-radius: 3%;
-    background: url('https://thumbor.forbes.com/thumbor/fit-in/600x300/https://www.forbes.com/advisor/wp-content/uploads/2021/08/vertical_black_card.c85039a0.png') center center no-repeat;
+    background: url('https://www.pngkit.com/png/full/386-3865554_blank-credit-card-pic-png-images-credit-card.png') center center no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+.balance-info-card__text {
+    margin-top: 0.8rem;
+    color: #ffff;
+    font-weight: bold;
+}
+
+.balance {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
