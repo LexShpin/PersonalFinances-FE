@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   public someVar = 'variable';
   public transactions: Transaction[];
 
-  constructor(private http: HttpClient, private router: Router, private dashboardService: DashboardService, private transactionsService: TransactionsService) {}
+  constructor(private dashboardService: DashboardService, private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user')!);

@@ -7,18 +7,21 @@
     <title>Registration</title>
 </head>
 <body>
-    <h1>Sign up</h1>
-    <form #registrationForm="ngForm" (ngSubmit)="onRegister(registrationForm)">
-        <label for="name">Enter your name: </label>
-        <input type="text" id="name" ngModel name="name" placeholder="Your name goes here">
-        <br>
-        <label for="username">Your username: </label>
-        <input type="text" id="username" ngModel name="username" placeholder="Enter username">
-        <br>
-        <label for="password">Your password: </label>
-        <input type="password" id="password" ngModel name="password" placeholder="Enter password">
-        <br>
-        <button type="submit">Register</button>
-    </form>
+    <div class="container main-container">
+        <h1>Sign up</h1>
+        <form #registrationForm="ngForm" (ngSubmit)="onRegister(registrationForm)">
+            <div class="mb-3">
+                <input type="text" class="form-control" ngModel name="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" ngModel name="username" placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" ngModel name="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    
 </body>
 </html>

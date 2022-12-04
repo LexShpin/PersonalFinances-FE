@@ -7,11 +7,17 @@
     <title>Login Page</title>
 </head>
 <body>
-    <h1>Sign in</h1>
-    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
-        <input type="text" ngModel name="username" placeholder="Enter username">
-        <input type="password" ngModel name="password" placeholder="Enter password">
-        <button type="submit">Login</button>
-    </form>
+    <div class="container main-container">
+        <h1>Sign in</h1>
+        <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+            <div class="mb-3">
+                <input type="text" class="form-control" ngModel name="username" placeholder="Enter username">
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" ngModel name="password" placeholder="Enter password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
 </body>
 </html>

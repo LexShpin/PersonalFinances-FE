@@ -19,7 +19,7 @@ export class TransactionsComponent {
   public currentTransaction: Transaction;
   public categories: [];
 
-  constructor(private router: Router, private transactionsService: TransactionsService) {}
+  constructor(private transactionsService: TransactionsService) {}
 
   ngOnInit(): void {
     this.date = new Date();
