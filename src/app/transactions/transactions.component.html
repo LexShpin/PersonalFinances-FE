@@ -22,7 +22,7 @@
             <tbody *ngFor="let transaction of transactions">
               <tr>
                 <th scope="row">{{transaction.id}}</th>
-                <td>{{transaction.date}}</td>
+                <td>{{transaction.date | date: 'yyyy-MM-dd'}}</td>
                 <td>{{transaction.amount}}</td>
                 <td>{{transaction.category}}</td>
                 <td>{{transaction.notes}}</td>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label for="category">Category: </label>
-                        <select type="date" class="form-select" id="category" ngModel="{{selectedCategory}}" #categories (change)="onSelectCategory(categories.value)" name="category">
+                        <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" ngModel name="category">
                             <option value="groceries">Groceries</option>
                             <option value="medicine">Medicine</option>
                         </select>
@@ -97,11 +97,11 @@
                 <form #editTransactionForm="ngForm" (ngSubmit)="onEditTransaction(editTransactionForm)">
                     <div class="form-group">
                       <label for="date">Date: </label>
-                      <input type="date" class="form-control" id="date" value="{{date}}" ngModel="{{currentTransaction?.date}}" name="date">
+                      <input type="date" [ngModel]="currentTransaction?.date | date: 'yyyy-MM-dd'" class="form-control" id="date" name="date">
                     </div>
                     <div class="form-group">
                         <label for="category">Category: </label>
-                        <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" name="category">
+                        <select type="date" class="form-select" id="category" #categories (change)="onSelectCategory(categories.value)" ngModel name="category">
                             <option value="groceries">Groceries</option>
                             <option value="medicine">Medicine</option>
                         </select>

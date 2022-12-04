@@ -24,7 +24,7 @@ export class TransactionsService {
     }
 
     public editTransaction(editTransactionForm: NgForm, id: number): Observable<Transaction> {
-        return this.http.post<Transaction>(`${this.transactionsUrl}/${id}/update`, editTransactionForm);
+        return this.http.patch<Transaction>(`${this.transactionsUrl}/${id}/update`, editTransactionForm);
     }
 
     public deleteTransaction(id: number): Observable<void> {

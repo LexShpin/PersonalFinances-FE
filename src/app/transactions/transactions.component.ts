@@ -41,6 +41,8 @@ export class TransactionsComponent {
   public onAddTransaction(addTransactionForm: NgForm): void {
     this.transactionsService.addTransaction(addTransactionForm.value).subscribe(
       (response) => {
+        this.onLoadTransactions();
+        addTransactionForm.reset();
         console.log(response);
       },
       (error) => {
@@ -50,10 +52,9 @@ export class TransactionsComponent {
   }
 
   public onEditTransaction(editTransactionForm: NgForm): void {
-    console.log(editTransactionForm.value);
-    // TODO - find the current transaction before passing in its id
     this.transactionsService.editTransaction(editTransactionForm.value, this.currentTransaction.id).subscribe(
       (response) => {
+        this.onLoadTransactions();
         console.log(response);
       },
       (error) => {
@@ -65,6 +66,7 @@ export class TransactionsComponent {
   public onDeleteTransaction(id: number): void {
     this.transactionsService.deleteTransaction(id).subscribe(
       (response) => {
+        this.onLoadTransactions();
         console.log(response);
       },
       (error) => {
